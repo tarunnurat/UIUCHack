@@ -11,9 +11,7 @@ var modelLoaded = false;
 var modelTextureLoaded = false;
 var modelTexture2Loaded = false;
 
-var zoom = -8;
-
-
+var zoom = -6.5;
 
 function initGL(canvas) {
     try {
@@ -225,6 +223,13 @@ function webGLStart() {
     initGL(canvas);
     initShaders();
     initScene();
+    canvas.addEventListener('mousewheel', onMouseWheel, false);
+    canvas.addEventListener('mouseover', function() {
+      overRenderer = true;
+    }, false);
+    canvas.addEventListener('mouseout', function() {
+      overRenderer = false;
+    }, false);
     initMouseGestures();
     getModelFromFile(modelURL, canvas);
 
@@ -260,29 +265,29 @@ function initMouseGestures() {
             coord.x = event.offsetX;
             xoff += .01*xdiff;
             yoff += .01*ydiff;
-            //zoom += .01*ydiff;
-            console.log("doing this");   
+            console.log("rotating");   
         }
 
     });
 }
+
+function onMouseWheel(event) {
+    event.preventDefault();
+    if (overRenderer) {
+      zoom += .005*event.wheelDeltaY;
+    }
+    return false;
+}
+
 function tick(){
-    animate();
     drawScene();
     requestAnimFrame(tick);
 }
 
-var lastTime = 0;
-function animate() {
-var timeNow = new Date().getTime();
-    if (lastTime != 0) {
-        var elapsed = timeNow - lastTime;
-        //xoff += (1 * elapsed) / 1000.0;
-        //rSquare += (75 * elapsed) / 1000.0;
-    }
-    lastTime = timeNow;
+function tick(){
+    drawScene();
+    requestAnimFrame(tick);
 }
-
 
 var modelVertexPositionBuffer;
 var modelVertexTextureBuffer;
