@@ -67,8 +67,42 @@ void shiftVertices(double average_x, double average_y, double average_z) {
 	}
 }
 
-int main() {
+void parseFaceLine(const string & line) {
+	int counter = 0;
+	string f1 = "";
+	string f2 = "";
+	string f3 = "";
+    bool shouldParse = false;
+	for (int i = 1; i < line.length(); ++i) {
+		if (line[i] == ' ') {
+			++counter;
+            shouldParse = true;
+			continue;
+		}
+        if (line[i] == '/') {
+            shouldParse = false;
+        }
+		if (counter == 1 && shouldParse) {
+			f1 += line[i];
+		}
+		else if (counter == 2 && shouldParse) {
+			f2 += line[i];
+		}
+		else if(counter == 3 && shouldParse){
+			f3 += line[i];
+		}
+	}
+	double double_f1 = ::atof(f1.c_str());
+	double double_f2 = ::atof(f2.c_str());
+	double double_f3 = ::atof(f3.c_str());
 
+    string string_x = getStringFromDouble(double_f1);
+    string string_y = getStringFromDouble(double_f2);
+    string string_z = getStringFromDouble(double_f3);
+    cout << "f "<< string_x + " " << string_y << " " << string_z << "\n";
+}
+
+int main() {
   	string line;
   	ifstream myfile ("MeshedReconstruction.obj");
   	if (myfile.is_open()) {
@@ -77,6 +111,13 @@ int main() {
 			if (line[0] == 'v' && line[1] != 'n') {
 				parseLine(line);
 			}
+
+            if (line[0] == 'f') {
+                parseFaceLine(line);
+            }
+            else if (line[0] == 'v' && line[1] == 'n') {
+                // do nothing.
+            }
 			else {
 				cout << line + "\n";
 			}
