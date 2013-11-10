@@ -13,7 +13,7 @@ var pLoaded = false;
 var modelTextureLoaded = false;
 var modelTexture2Loaded = false;
 
-var zoom = -3.5;
+var zoom = -2.5;
 var scaleby = .032;
 
 var rotby = vec3.create(0,1.0,0);
@@ -32,8 +32,7 @@ function initGL(canvas) {
     }
 }
 
-
- function getShader(gl, id) {
+function getShader(gl, id) {
     var shaderScript = document.getElementById(id);
     if (!shaderScript) {
         return null;
@@ -115,7 +114,6 @@ function initShaders() {
     shaderProgram.lightPositionUniform = gl.getUniformLocation(shaderProgram, "lightPosition");
 }
 
-
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 
@@ -130,7 +128,6 @@ function setMatrixUniforms() {
     gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
 }
 
-
 function drawScene() {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -138,16 +135,11 @@ function drawScene() {
     mat4.perspective(pMatrix, 45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0);
 
     mat4.identity(mvMatrix);
-    if (zoom > -0.5) {
-        zoom = -0.6;
-    }
+    if (zoom > -0.3) zoom = -0.35;
     mat4.translate(mvMatrix, mvMatrix, [0, 0.0, zoom]);
 
-    if(modelLoaded){
-
+    if (modelLoaded) {
         mvPushMatrix();
-        //mat4.rotate(mvMatrix, mvMatrix, 0.3*Math.sin(xoff), [1.0, 0.0, 0.0]);
-        //mat4.rotate(mvMatrix, mvMatrix, 0.4*Math.cos(2*xoff), [0.0, 0.0, 1.0]);
         mat4.rotate(mvMatrix, mvMatrix, xoff, [0.0, 1.0, 0.0]);
         mat4.rotate(mvMatrix, mvMatrix, yoff, [1.0, 0.0, 0.0]);
         mat4.rotate(mvMatrix, mvMatrix, -.5, [0.0, 1.0, 0.0]);
@@ -202,14 +194,12 @@ function drawScene() {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
         setMatrixUniforms();
         gl.drawArrays(gl.TRIANGLES, 0, modelVertexIndexBuffer.numItems);
-//        gl.drawElements(gl.TRIANGLES, modelVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+        //gl.drawElements(gl.TRIANGLES, modelVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
         mvPopMatrix();
-
     }
-    if(pLoaded){
+
+    if (pLoaded) {
         mvPushMatrix();
-        //mat4.rotate(mvMatrix, mvMatrix, 0.3*Math.sin(xoff), [1.0, 0.0, 0.0]);
-        //mat4.rotate(mvMatrix, mvMatrix, 0.4*Math.cos(2*xoff), [0.0, 0.0, 1.0]);
         mat4.rotate(mvMatrix, mvMatrix, xoff, [0.0, 1.0, 0.0]);
         mat4.rotate(mvMatrix, mvMatrix, yoff, [1.0, 0.0, 0.0]);
         mat4.scale(mvMatrix, mvMatrix, [scaleby, scaleby, scaleby])
@@ -271,7 +261,7 @@ function drawScene() {
     }
 }
 
-function customInvert43(matrix){
+function customInvert43(matrix) {
     var returnmat = mat3.create(); 
     mat3.fromMat4(returnmat, matrix);
     mat3.invert(returnmat, returnmat);
@@ -296,7 +286,6 @@ function webGLStart() {
     getModelFromFile(modelURL2, false);
     getModelFromFile(modelURL, true);
 
-
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
@@ -308,21 +297,21 @@ function initMouseGestures() {
     var canvas = $('#my-canvas');
     var coord = {x:0, y:0};
     console.log(canvas);
-    canvas.mousedown(function(event){
+    canvas.mousedown(function(event) {
         console.log(event);
         mousedown = true;
         coord.x = event.offsetX;
         coord.y = event.offsetY;
     });
-    canvas.mouseup(function(){
+    canvas.mouseup(function() {
         mousedown = false;
     });
-    canvas.mouseout(function(){
+    canvas.mouseout(function() {
         mousedown = false;
     });
-    canvas.mousemove(function(event){
+    canvas.mousemove(function(event) {
         console.log(mousedown);
-        if(mousedown){
+        if (mousedown) {
             var xdiff = event.offsetX - coord.x;
             var ydiff = event.offsetY - coord.y;
             coord.y = event.offsetY;
@@ -343,12 +332,7 @@ function onMouseWheel(event) {
     return false;
 }
 
-function tick(){
-    drawScene();
-    requestAnimFrame(tick);
-}
-
-function tick(){
+function tick() {
     drawScene();
     requestAnimFrame(tick);
 }
@@ -363,7 +347,6 @@ var pVertexTextureBuffer;
 var pVertexIndexBuffer;
 var pVertexNormalBuffer;
 
-
 var avex = 0;
 var avey = 0;
 var avez = 0;
@@ -374,7 +357,7 @@ var maxy = 0;
 var miny = 0;
 var maxz = 0;
 var minz = 0;
-function finishedModelDownload(data, isModel){
+function finishedModelDownload(data, isModel) {
     //debugger
     var text= String(data);
     var lines = text.split(/\n/);
@@ -392,11 +375,11 @@ function finishedModelDownload(data, isModel){
 
     var vc = 0;
     
-    for(var i =0; i < lines.length; i++){
+    for (var i =0; i < lines.length; i++) {
         var line = lines[i];
-        if(line[0] == 'v' && line[1] == ' '){
+        if (line[0] == 'v' && line[1] == ' ') {
             lineshit = line.split(" ");
-            if(lineshit.length != 4) console.log("holly shittt");
+            if (lineshit.length != 4) console.log("holly shittt");
             vertices.push(parseFloat( lineshit[ 1 ] ));
             vertices.push(parseFloat( lineshit[ 2 ] ));
             vertices.push(parseFloat( lineshit[ 3 ] ));
@@ -412,16 +395,14 @@ function finishedModelDownload(data, isModel){
             maxy = Math.max(maxy, lineshit[ 2 ]);
             vc++;
         }
-        if(line.length === 0 || line[0] === '#'){
+        if (line.length === 0 || line[0] === '#') {
             continue;
-        }
-        else if ( ( result = vertex_pattern.exec( line ) ) !== null ) {
+        } else if ( ( result = vertex_pattern.exec( line ) ) !== null ) {
             // ["v 1.0 2.0 3.0", "1.0", "2.0", "3.0"]
             /*scene.vertices.push(parseFloat( result[ 1 ] ));
             scene.vertices.push(parseFloat( result[ 2 ] ));
             scene.vertices.push(parseFloat( result[ 3 ] ));
             normalAccumilator.push(vec3.create(0,0,0));*/
-
 
         } else if ( ( result = normal_pattern.exec( line ) ) !== null ) {
             //["vn 1.0 2.0 3.0", "1.0", "2.0", "3.0"]
@@ -431,8 +412,7 @@ function finishedModelDownload(data, isModel){
 
         } else if ( ( result = uv_pattern.exec( line ) ) !== null ) {
             // ["vt 0.1 0.2", "0.1", "0.2"]
-        } 
-        else if ( ( result = face_pattern1.exec( line ) ) !== null ) {
+        } else if ( ( result = face_pattern1.exec( line ) ) !== null ) {
             // just a mesh, no textures or normals
             // ["f 1 2 3", "1", "2", "3", undefined]
             if ( result[ 4 ] === undefined ) {
@@ -444,8 +424,7 @@ function finishedModelDownload(data, isModel){
                 tempFace = vec3.fromValues(parseInt( result[1] )-1,parseInt( result[3] )-1,parseInt( result[4] )-1);
                 faces.push(tempFace);
             }
-        }
-         else if ( ( result = face_pattern2.exec( line ) ) !== null ) {
+        } else if ( ( result = face_pattern2.exec( line ) ) !== null ) {
             // ["f 1/1 2/2 3/3", " 1/1", "1", "1", " 2/2", "2", "2", " 3/3", "3", "3", undefined, undefined, undefined]
             if ( result[ 10 ] === undefined ) {
                 var tempFace = vec3.fromValues(parseInt( result[2] )-1,parseInt( result[5] )-1,parseInt( result[8] )-1);
@@ -456,7 +435,6 @@ function finishedModelDownload(data, isModel){
                 tempFace = vec3.fromValues(parseInt( result[1] )-1,parseInt( result[8] )-1,parseInt( result[11] )-1);
                 faces.push(tempFace);
             }
-
         } else if ( ( result = face_pattern3.exec( line ) ) !== null ) {
             console.log("broke");
             // ["f 1/1/1 2/2/2 3/3/3", " 1/1/1", "1", "1", "1", " 2/2/2", "2", "2", "2", " 3/3/3", "3", "3", "3", undefined, undefined, undefined, undefined]
@@ -471,7 +449,6 @@ function finishedModelDownload(data, isModel){
                 tempFace = vec3.fromValues(parseInt( result[1] )-1,parseInt( result[8] )-1,parseInt( result[11] )-1);
                 faces.push(tempFace);
             }
-
             // ["f 1//1 2//2 3//3", " 1//1", "1", "1", " 2//2", "2", "2", " 3//3", "3", "3", undefined, undefined, undefined]
         } else if ( /^o /.test( line ) ) {            
             // object
@@ -505,7 +482,7 @@ function finishedModelDownload(data, isModel){
 
     console.log(vertices[0] + " " + vertices[1]);
 
-    for(var i = 0; i < faces.length; i++){
+    for (var i = 0; i < faces.length; i++) {
         var currFace = faces[i];
         var vec12 = vec3.fromValues(
             vertices[currFace[1]*3]-vertices[currFace[0]*3],
@@ -517,26 +494,26 @@ function finishedModelDownload(data, isModel){
             vertices[currFace[2]*3+2]-vertices[currFace[1]*3+2]);
         var cross12_23 = vec3.create();
         vec3.cross(cross12_23, vec12, vec23);
-        if(currFace == null) console.log("broken");
+        if (currFace == null) console.log("broken");
         try{
             vec3.add(normalAccumilator[currFace[0]], normalAccumilator[currFace[0]], cross12_23);
             vec3.add(normalAccumilator[currFace[1]], normalAccumilator[currFace[1]], cross12_23);
             vec3.add(normalAccumilator[currFace[2]], normalAccumilator[currFace[2]], cross12_23);
-        }catch(e){
+        } catch(e) {
             console.log(normalAccumilator[currFace[0]]);
             console.log(currFace[0] + " " + currFace[1] + " " + currFace[2]);
         }   
     }
 
-    for(var i = 0; i < normalAccumilator.length; i++){
+    for (var i = 0; i < normalAccumilator.length; i++) {
         vec3.normalize(normalAccumilator[i],normalAccumilator[i]);
     }
 
-    if(isModel){
+    if (isModel) {
         modelVertexNormalBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexNormalBuffer);
         var vertexNormals = [];
-        for(var i = 0; i < normalAccumilator.length; i++){
+        for (var i = 0; i < normalAccumilator.length; i++) {
             vertexNormals.push(normalAccumilator[i][0]);
             vertexNormals.push(normalAccumilator[i][1]);
             vertexNormals.push(normalAccumilator[i][2]);
@@ -551,21 +528,19 @@ function finishedModelDownload(data, isModel){
         modelVertexPositionBuffer.itemSize = 3;
         modelVertexPositionBuffer.numItems = vertices.length/3;
 
-
         modelVertexTextureBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexTextureBuffer);
         var textureCoords = [
           // Front
         ];
         var texture = [];
-        for(var i = 0; i < vertices.length/3; i++){
+        for (var i = 0; i < vertices.length/3; i++) {
             texture.push(textureCoords[i%textureCoords.length]);
             texture.push(textureCoords[i%textureCoords.length+1]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texture), gl.STATIC_DRAW);
         modelVertexTextureBuffer.itemSize = 2;
         modelVertexTextureBuffer.numItems = vertices.length/3;
-
 
         modelVertexIndexBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
@@ -581,11 +556,11 @@ function finishedModelDownload(data, isModel){
         modelVertexIndexBuffer.numItems = modelVertexIndices.length;
         modelLoaded = true;
 
-    }else{
+    } else {
         pVertexNormalBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, pVertexNormalBuffer);
         var vertexNormals = [];
-        for(var i = 0; i < normalAccumilator.length; i++){
+        for (var i = 0; i < normalAccumilator.length; i++) {
             vertexNormals.push(normalAccumilator[i][0]);
             vertexNormals.push(normalAccumilator[i][1]);
             vertexNormals.push(normalAccumilator[i][2]);
@@ -600,21 +575,19 @@ function finishedModelDownload(data, isModel){
         pVertexPositionBuffer.itemSize = 3;
         pVertexPositionBuffer.numItems = vertices.length/3;
 
-
         modelVertexTextureBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexTextureBuffer);
         var textureCoords = [
           // Front face
         ];
         var texture = [];
-        for(var i = 0; i < vertices.length/3; i++){
+        for (var i = 0; i < vertices.length/3; i++) {
             texture.push(textureCoords[i%textureCoords.length]);
             texture.push(textureCoords[i%textureCoords.length+1]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texture), gl.STATIC_DRAW);
         modelVertexTextureBuffer.itemSize = 2;
         modelVertexTextureBuffer.numItems = vertices.length/3;
-
 
         pVertexIndexBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pVertexIndexBuffer);
@@ -631,7 +604,8 @@ function finishedModelDownload(data, isModel){
         pLoaded = true;
     }
 }
-function getModelFromFile(modelURL, mainModel){
+
+function getModelFromFile(modelURL, mainModel) {
     var canvas = $('#my-canvas');
     $.ajax({
         url: modelURL,
@@ -647,7 +621,7 @@ function getModelFromFile(modelURL, mainModel){
     //$.get(modelURL, finishedModelDownload, 'text')
 }
 
-function face(_v1, _v2, _v3){
+function face(_v1, _v2, _v3) {
     this.v1 = parseInt(_v1);
     this.v2 = parseInt(_v2);
     this.v3 = parseInt(_v3);
@@ -656,41 +630,30 @@ function face(_v1, _v2, _v3){
         this.normal = normal;
     }
 }
-function initScene(){
+
+function initScene() {
     scene = new Object();
     scene.vertices = new Array();
     scene.faces = new Array();
 }
+
 function mvPushMatrix() {
     var copy = mat4.create();
     copy = mat4.clone(mvMatrix);
     //mat4.set(mvMatrix, copy);
     mvMatrixStack.push(copy);
 }
+
 function mvPopMatrix() {
     if (mvMatrixStack.length == 0) {
         throw "Invalid popMatrix!";
     }
     mvMatrix = mvMatrixStack.pop();
 }
-function render(a){
+
+function render(a) {
     var x = document.getElementById("selection").options[document.getElementById("selection").selectedIndex].value;
     var filename;
-    if(x == 1) {
-        filename = "teapot.obj";
-    }
-    else if(x == 2) {
-        filename = "cow.obj";
-    }
-    else if(x == 3) {
-        filename = "pumpkin.obj";
-    }
-    else if(x == 4) {
-        filename = "teddy.obj";
-    }
-    else if(x == 5) {
-        filename = "airplane2.obj";
-    }
     var canvas = document.getElementById("my-canvas");
     initGL(canvas);
     initShaders();
