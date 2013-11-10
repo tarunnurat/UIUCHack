@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Sell anythign: Premium Responsive Template develope by bootstrappage.com (bootstrap 2.3.1 version)</title>
+    <title>Harsha Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -51,7 +51,7 @@
 
 <div class="navbar">
 <div class="navbar-inner">
-	<a class="brand" href="index.php"><img src="themes/images/new_logo.png" alt="Bootsshop"></a>
+	<a class="brand" href="index.php"><img src="" alt="Harsha Market"></a>
 	<div class="nav-collapse">
 		<ul id="topMenu" class="nav pull-right">
 		 <li class="">
@@ -169,9 +169,22 @@
 		</canvas>
 	</div>
 	<div style="float:right; width:50%;">
-	something
+		<table>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
+		</table>
 </div>
-  </div>
+</div>
 </div>
 </div>
 
