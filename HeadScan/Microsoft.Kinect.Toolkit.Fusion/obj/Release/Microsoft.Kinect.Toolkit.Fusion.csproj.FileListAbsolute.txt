@@ -1,0 +1,10 @@
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\bin\Release\KinectFusion180_32.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\bin\Release\KinectFusion180_64.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\bin\Release\Microsoft.Kinect.Toolkit.Fusion.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\bin\Release\Microsoft.Kinect.Toolkit.Fusion.pdb
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\Microsoft.Kinect.Toolkit.Fusion.Resources.resources
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\GenerateResource.read.1.tlog
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\GenerateResource.write.1.tlog
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\Microsoft.Kinect.Toolkit.Fusion.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.Fusion\obj\Release\Microsoft.Kinect.Toolkit.Fusion.pdb

@@ -1,0 +1,7 @@
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Release\FaceTrackData.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Release\FaceTrackLib.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Release\Microsoft.Kinect.Toolkit.FaceTracking.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\bin\x86\Release\Microsoft.Kinect.Toolkit.FaceTracking.pdb
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Release\ResolveAssemblyReference.cache
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Release\Microsoft.Kinect.Toolkit.FaceTracking.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit.FaceTracking\obj\Win32\Release\Microsoft.Kinect.Toolkit.FaceTracking.pdb

@@ -1,0 +1,14 @@
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\bin\Release\Microsoft.Kinect.Toolkit.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\bin\Release\Microsoft.Kinect.Toolkit.pdb
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\bin\Release\Microsoft.Kinect.Toolkit.dll.CodeAnalysisLog.xml
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\bin\Release\Microsoft.Kinect.Toolkit.dll.lastcodeanalysissucceeded
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\KinectSensorChooserUI.baml
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\KinectSensorChooserUI.g.cs
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\Microsoft.Kinect.Toolkit_MarkupCompile.cache
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\Microsoft.Kinect.Toolkit.g.resources
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\Microsoft.Kinect.Toolkit.Properties.Resources.resources
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\GenerateResource.read.1.tlog
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\GenerateResource.write.1.tlog
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\Microsoft.Kinect.Toolkit.dll
+C:\Users\Tarun\Kinect Fusion Basics\HackathonHeadScan\Microsoft.Kinect.Toolkit\obj\Release\Microsoft.Kinect.Toolkit.pdb
