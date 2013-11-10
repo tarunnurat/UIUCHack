@@ -1,0 +1,13 @@
+!!!5
+html
+    head
+        h1 Welcome
+        h3 These are the most recent models
+    body
+        -each m in models
+            mixin model_link(m.name, "/models/"+m._id)
+
+mixin model_link(name, url)
+    .div
+        a(href='#{url}')
+            h4 #{name}

@@ -1,0 +1,120 @@
+!!! 5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title Harsha Market
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+
+    link(rel='stylesheet/less', type='text/css', href='/themes/less/bootstrap.less')
+    script(src='/themes/js/less/less.js', type='text/javascript')
+    link(rel='shortcut icon', href='/themes/images/favicon.ico')
+  body
+    section#mainBody
+      .container
+        h3.title
+          span ITEM DETAILS
+        div(style='width: 100%;')
+          div(style='float: left; width: 50%;')
+            script(type='text/javascript', src='/jquery-1.10.2.js')
+            script(type='text/javascript', src='/glmatrix.js')
+            script(type='text/javascript', src='/obj-module.js')
+            script(type='text/javascript', src='/webgl-utils.js')
+            script(id = "shader-fs",type="x-shader/x-fragment").
+              precision mediump float;
+
+              varying vec2 vTextureCoord;
+              varying vec2 vReflectiveTextureCoord;
+              varying vec3 vPosition;
+              varying vec3 vNormal;
+
+              uniform sampler2D uSampler;
+              uniform sampler2D uSampler2;
+
+              uniform vec3 lightPosition; 
+
+              uniform vec3 uAmbientColor;
+
+              void main(void) {
+                  vec3 defaultLight = vec3(.5,.5,.5);
+                  vec3 lightIntensity;
+                  vec4 roughTextureColor = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
+                  vec4 reflectTextureColor = texture2D(uSampler, vec2(vReflectiveTextureCoord.s, vReflectiveTextureCoord.t));
+                  vec3 textureTotals = vec3(.3,.3,.3);
+
+                  vec3 eyeDirection = normalize(-vPosition);
+                  vec3 normal_n = normalize(vNormal);
+                  vec3 lightDirectionWithRespectToVertex = -normalize(vPosition - lightPosition);
+                  //vec3 reflectionDirection = reflect(-lightDirectionWithRespectToVertex, vNormal);
+
+                  float directionalLightWeighting = max(dot(normal_n, lightDirectionWithRespectToVertex), 0.0);
+
+                  //float specularLightWeighting = pow(max(dot(reflectionDirection, eyeDirection), 0.0), 25.0);
+
+                  lightIntensity = uAmbientColor + vec3(.2,.2,.2) + defaultLight * directionalLightWeighting;
+                  //gl_FragColor = vec4(textureTotals * vLightWeighting + vec3(0.6,0.6,0.6) * specularLightWeighting, roughTextureColor.a);
+                  gl_FragColor = vec4(lightIntensity, 1.0);
+              }
+
+            script(id="shader-vs",type="x-shader/x-vertex").
+              attribute vec3 aVertexPosition;
+              attribute vec3 aVertexNormal;
+              attribute vec2 aTextureCoord;
+
+              uniform mat4 uMVMatrix;
+              uniform mat4 uPMatrix;
+              uniform mat3 uNMatrix;
+
+              uniform vec3 lightPosition;
+
+              uniform vec3 uAmbientColor;
+
+              uniform vec3 uLightingDirection;
+              uniform vec3 uDirectionalColor;
+
+              varying vec2 vTextureCoord;
+              varying vec2 vReflectiveTextureCoord;
+              //varying vec3 vLightWeighting;
+              varying vec3 vPosition;
+              varying vec3 vNormal;
+              void main(void) {
+                  vPosition = (uMVMatrix * vec4(aVertexPosition, 1.0)).xyz;
+                  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+                  vec3 transformedNormal = uNMatrix * aVertexNormal;
+                  vNormal = transformedNormal;
+                  vTextureCoord = aTextureCoord;
+                  vReflectiveTextureCoord = vec2(0.5, 0.5) + vec2(transformedNormal[0]*.5, transformedNormal[1]*.5); 
+              }
+            script(type='text/javascript').
+              var modelURL = "/models/#{filenamer}.obj";
+              var modelURL2 = "/models/Bowler.obj";
+              $( document ).ready( function(){
+              webGLStart();
+              });
+            body
+              canvas#my-canvas(width='500px', height='500px')
+          div(style='float: right; width: 50%;')
+            .scroll
+              table
+                tr
+                  td
+                    a(href='')
+                      img(src='/img/bowler.png', width='100', height='100')
+                  td  
+                    button(onclick="getModelFromFile('/models/Bowler.obj', false); getModelFromFile(modelURL, true);") put on
+                    p Classy bowler hat
+                tr
+                  td
+                    a(href='')
+                      img(src='/img/top.png', width='100', height='100')
+                  td
+                    button(onclick="getModelFromFile('/models/Tophat.obj', false); getModelFromFile(modelURL, true);") put on
+                    p Super posh top hat
+                tr
+                  td
+                    a(href='')
+                      img(src='/img/captain.png', width='100', height='100')
+                  td
+                    button(onclick="getModelFromFile('/models/Newhat.obj', false); getModelFromFile(modelURL, true);") put on
+                    p El capitán
