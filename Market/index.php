@@ -1,5 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+	<style type="text/css">
+		div.scroll
+		{
+		background-color:#FFFFFF;
+		width:500px;
+		height:500px;
+		overflow:scroll;
+}
+
+	</style>
   <head>
     <meta charset="utf-8">
     <title>Harsha Market</title>
@@ -169,6 +179,7 @@
 		</canvas>
 	</div>
 	<div style="float:right; width:50%;">
+		<div class="scroll">
 		<table>
 			<tr>
 				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
@@ -182,7 +193,20 @@
 				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
 				<td> This item is an awesome hat that looks awesome </td>
 			</tr>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
+			<tr>
+				<td> <a href=""><img src="Hat.png" width="100" height="100"></a></td>
+				<td> This item is an awesome hat that looks awesome </td>
+			</tr>
 		</table>
+	</div>
 </div>
 </div>
 </div>
