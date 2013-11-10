@@ -63,7 +63,7 @@ void shiftVertices(double average_x, double average_y, double average_z) {
 		string string_y = getStringFromDouble(all_y[i]);
 		string string_z = getStringFromDouble(all_z[i]);
 		string verticeLine = "v " + string_x + " " + string_y + " " + string_z + "\n";
-		cout << verticeLine;
+		//cout << verticeLine;
 	}
 }
 
@@ -72,16 +72,16 @@ void parseFaceLine(const string & line) {
 	string f1 = "";
 	string f2 = "";
 	string f3 = "";
-    bool shouldParse = false;
+	bool shouldParse = false;
 	for (int i = 1; i < line.length(); ++i) {
 		if (line[i] == ' ') {
 			++counter;
-            shouldParse = true;
+			shouldParse = true;
 			continue;
 		}
-        if (line[i] == '/') {
-            shouldParse = false;
-        }
+		if (line[i] == '/') {
+			shouldParse = false;
+		}
 		if (counter == 1 && shouldParse) {
 			f1 += line[i];
 		}
@@ -96,37 +96,37 @@ void parseFaceLine(const string & line) {
 	double double_f2 = ::atof(f2.c_str());
 	double double_f3 = ::atof(f3.c_str());
 
-    string string_x = getStringFromDouble(double_f1);
-    string string_y = getStringFromDouble(double_f2);
-    string string_z = getStringFromDouble(double_f3);
-    cout << "f "<< string_x + " " << string_y << " " << string_z << "\n";
+	string string_x = getStringFromDouble(double_f1);
+	string string_y = getStringFromDouble(double_f2);
+	string string_z = getStringFromDouble(double_f3);
+	//cout << "f "<< string_x + " " << string_y << " " << string_z << "\n";
 }
 
 int main() {
-  	string line;
-  	ifstream myfile ("MeshedReconstruction.obj");
-  	if (myfile.is_open()) {
+	string line;
+	ifstream myfile ("Pratik.obj");
+	if (myfile.is_open()) {
 		while ( getline (myfile,line) )
 		{
 			if (line[0] == 'v' && line[1] != 'n') {
 				parseLine(line);
 			}
-
-            if (line[0] == 'f') {
-                parseFaceLine(line);
-            }
-            else if (line[0] == 'v' && line[1] == 'n') {
-                // do nothing.
-            }
+			else if (line[0] == 'f') {
+				parseFaceLine(line);
+			}
+			else if (line[0] == 'v' && line[1] == 'n') {
+				// do nothing.
+			}
 			else {
-				cout << line + "\n";
+				//cout << line + "\n";
 			}
 		}
-    	myfile.close();
-  	}
+		myfile.close();
+	}
 	double average_x = total_x / totalVertices;
 	double average_y = total_y / totalVertices;
 	double average_z = total_z / totalVertices;
+	cout << average_x << " " << average_y << " " << average_z << "\n";
 	shiftVertices(average_x, average_y, average_z);
 	return 0;
 }
