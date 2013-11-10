@@ -14,7 +14,9 @@ var modelTextureLoaded = false;
 var modelTexture2Loaded = false;
 
 var zoom = -3.5;
-var scaleby = .05;
+var scaleby = .032;
+
+var rotby = vec3.create(0,1.0,0);
 
 function initGL(canvas) {
     try {
@@ -147,7 +149,7 @@ function drawScene() {
         //mat4.rotate(mvMatrix, mvMatrix, 0.4*Math.cos(2*xoff), [0.0, 0.0, 1.0]);
         mat4.rotate(mvMatrix, mvMatrix, xoff, [0.0, 1.0, 0.0]);
         mat4.rotate(mvMatrix, mvMatrix, yoff, [1.0, 0.0, 0.0]);
-
+        mat4.rotate(mvMatrix, mvMatrix, -.5, [0.0, 1.0, 0.0]);
         mat4.translate(mvMatrix, mvMatrix, [-avex, -avey, -avez]);
 
         //mat4.translate(mvMatrix, mvMatrix, [0, 0, 1.0]);
@@ -211,7 +213,7 @@ function drawScene() {
         mat4.rotate(mvMatrix, mvMatrix, yoff, [1.0, 0.0, 0.0]);
         mat4.scale(mvMatrix, mvMatrix, [scaleby, scaleby, scaleby])
 
-        mat4.translate(mvMatrix, mvMatrix, [-avex, -avey, -avez]);
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 1.4, -1.6]);
 
         //mat4.translate(mvMatrix, mvMatrix, [0, 0, 1.0]);
         
