@@ -132,10 +132,10 @@ function drawScene() {
 
     mat4.perspective(pMatrix, 45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0);
 
-
     mat4.identity(mvMatrix);
-    mat4.translate(mvMatrix, mvMatrix, [0, 0.0, zoom]);
-
+    if (zoom > 0) {
+        mat4.translate(mvMatrix, mvMatrix, [0, 0.0, zoom]);
+    }
 
     if(modelLoaded){
 
@@ -208,13 +208,13 @@ function drawScene() {
         mvPopMatrix();
     }
 }
+
 function customInvert43(matrix){
     var returnmat = mat3.create(); 
     mat3.fromMat4(returnmat, matrix);
     mat3.invert(returnmat, returnmat);
     return returnmat;
 }
-
 
 function webGLStart() {
     var canvas = document.getElementById("my-canvas");
@@ -448,9 +448,9 @@ function finishedModelDownload(data){
         }catch(e){
             console.log(normalAccumilator[currFace[0]]);
             console.log(currFace[0] + " " + currFace[1] + " " + currFace[2]);
-        }
-        
+        }   
     }
+
     for(var i = 0; i < normalAccumilator.length; i++){
         vec3.normalize(normalAccumilator[i],normalAccumilator[i]);
     }
@@ -463,6 +463,7 @@ function finishedModelDownload(data){
         vertexNormals.push(normalAccumilator[i][1]);
         vertexNormals.push(normalAccumilator[i][2]);
     }
+
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
     modelVertexNormalBuffer.itemSize = 3;
     modelVertexNormalBuffer.numItems = normalAccumilator.length;
@@ -471,7 +472,6 @@ function finishedModelDownload(data){
     console.log("verts: " + scene.vertices.length);
     for(var i = 0; i < scene.vertices.length - scene.normals.length ; i++ ){
         scene.normals.push(0);
-
     }*/
 
     /*modelVertexNormalBuffer = gl.createBuffer();
@@ -482,14 +482,11 @@ function finishedModelDownload(data){
     modelVertexNormalBuffer.itemSize = 3;
     modelVertexNormalBuffer.numItems = scene.normals.length;*/
 
-
-
     modelVertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexPositionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(scene.vertices), gl.STATIC_DRAW);
     modelVertexPositionBuffer.itemSize = 3;
     modelVertexPositionBuffer.numItems = scene.vertices.length/3;
-
 
     modelVertexTextureBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexTextureBuffer);
@@ -524,7 +521,6 @@ function finishedModelDownload(data){
     modelVertexTextureBuffer.itemSize = 2;
     modelVertexTextureBuffer.numItems = scene.vertices.length/3;
 
-
     modelVertexIndexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
     var modelVertexIndices = [];
@@ -537,7 +533,6 @@ function finishedModelDownload(data){
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(modelVertexIndices), gl.STATIC_DRAW);
     modelVertexIndexBuffer.itemSize = 1;
     modelVertexIndexBuffer.numItems = modelVertexIndices.length;
-
 
     modelLoaded = true;
     //drawScene();
