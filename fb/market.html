@@ -1,0 +1,89 @@
+<html>
+	<script type="text/javascript" src="jquery-1.10.2.js"></script>	
+	<script type="text/javascript" src="glmatrix.js"></script>	
+	<script type="text/javascript" src="obj-module.js"></script>	
+	<script type="text/javascript" src="webgl-utils.js"></script>
+	<script id = "shader-fs" type="x-shader/x-fragment">
+	  	precision mediump float;
+
+		varying vec2 vTextureCoord;
+		varying vec2 vReflectiveTextureCoord;
+		varying vec3 vPosition;
+		varying vec3 vNormal;
+
+		uniform sampler2D uSampler;
+		uniform sampler2D uSampler2;
+
+		uniform vec3 lightPosition;	
+
+		uniform vec3 uAmbientColor;
+
+		void main(void) {
+   			vec3 defaultLight = vec3(.8,.8,.8);
+   			vec3 lightIntensity;
+   			vec4 roughTextureColor = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
+   			vec4 reflectTextureColor = texture2D(uSampler, vec2(vReflectiveTextureCoord.s, vReflectiveTextureCoord.t));
+   			vec3 textureTotals = roughTextureColor.rgb*1.5 * reflectTextureColor.rgb*1.5;
+
+    		vec3 eyeDirection = normalize(-vPosition);
+    		
+   			vec3 lightDirectionWithRespectToVertex = -normalize(vPosition - lightPosition);
+   			vec3 reflectionDirection = reflect(-lightDirectionWithRespectToVertex, vNormal);
+
+   			float directionalLightWeighting = max(dot(vNormal, lightDirectionWithRespectToVertex), 0.0);
+
+   			float specularLightWeighting = pow(max(dot(reflectionDirection, eyeDirection), 0.0), 25.0);
+
+   			lightIntensity = uAmbientColor + defaultLight * directionalLightWeighting + defaultLight * 3.0 * specularLightWeighting;
+    		//gl_FragColor = vec4(textureTotals * vLightWeighting + vec3(0.6,0.6,0.6) * specularLightWeighting, roughTextureColor.a);
+    		gl_FragColor = vec4(textureTotals * lightIntensity, roughTextureColor.a);
+		}
+	</script>
+
+	<script id = "shader-vs" type="x-shader/x-vertex">
+		attribute vec3 aVertexPosition;
+		attribute vec3 aVertexNormal;
+		attribute vec2 aTextureCoord;
+
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+		uniform vec3 lightPosition;
+
+		uniform vec3 uAmbientColor;
+
+		uniform vec3 uLightingDirection;
+		uniform vec3 uDirectionalColor;
+
+		varying vec2 vTextureCoord;
+		varying vec2 vReflectiveTextureCoord;
+		//varying vec3 vLightWeighting;
+		varying vec3 vPosition;
+		varying vec3 vNormal;
+
+		void main(void) {
+		vPosition = (uMVMatrix * vec4(aVertexPosition, 1.0)).xyz;
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+		vec3 transformedNormal = uNMatrix * aVertexNormal;
+		vNormal = transformedNormal;
+		vTextureCoord = aTextureCoord;
+		vReflectiveTextureCoord = vec2(0.5, 0.5) + vec2(transformedNormal[0]*.5, transformedNormal[1]*.5);
+        
+		}
+	</script>
+
+	<script type="text/javascript">
+		var modelURL = "teapot.obj";
+		$( document ).ready( function(){
+			 webGLStart();
+		});
+	</script>
+	<body>
+		<canvas id="my-canvas">
+		</canvas>
+	</div>
+
+
+
+</html>
