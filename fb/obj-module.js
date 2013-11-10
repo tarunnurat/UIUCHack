@@ -137,10 +137,11 @@ function drawScene() {
 
     mat4.perspective(pMatrix, 45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0);
 
-
     mat4.identity(mvMatrix);
+    if (zoom > -0.5) {
+        zoom = -0.6;
+    }
     mat4.translate(mvMatrix, mvMatrix, [0, 0.0, zoom]);
-
 
     if(modelLoaded){
 
@@ -269,13 +270,13 @@ function drawScene() {
         //gl.drawArrays(gl.TRIANGLES, 0, modelVertexIndexBuffer.numItems);
     }
 }
+
 function customInvert43(matrix){
     var returnmat = mat3.create(); 
     mat3.fromMat4(returnmat, matrix);
     mat3.invert(returnmat, returnmat);
     return returnmat;
 }
-
 
 function webGLStart() {
     var canvas = document.getElementById("my-canvas");
@@ -524,13 +525,12 @@ function finishedModelDownload(data, isModel){
         }catch(e){
             console.log(normalAccumilator[currFace[0]]);
             console.log(currFace[0] + " " + currFace[1] + " " + currFace[2]);
-        }
-        
+        }   
     }
+
     for(var i = 0; i < normalAccumilator.length; i++){
         vec3.normalize(normalAccumilator[i],normalAccumilator[i]);
     }
-    
 
     if(isModel){
         modelVertexNormalBuffer = gl.createBuffer();
@@ -630,8 +630,6 @@ function finishedModelDownload(data, isModel){
         pVertexIndexBuffer.numItems = modelVertexIndices.length;
         pLoaded = true;
     }
-
-    //drawScene();
 }
 function getModelFromFile(modelURL, mainModel){
     var canvas = $('#my-canvas');
